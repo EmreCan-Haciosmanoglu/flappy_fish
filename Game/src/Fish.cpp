@@ -10,7 +10,10 @@ Fish::Fish(float smallUp, float bigUp, float x, float y, float g, NeuralNetwork*
 	, m_G(g)
 	, m_Brain(brain)
 	, m_GameLayer(gameLayer)
+	, params()
 {
+	params.Size = { 0.7f, 0.7f };
+	params.texture = m_GameLayer->m_FishImage;
 }
 
 Fish::~Fish()
@@ -29,7 +32,8 @@ void Fish::Update(float ts, float* state, int stateSize)
 
 void Fish::Draw(float height, int index)
 {
-	Can::Renderer2D::DrawQuad({ m_X, m_Y - height / 2, 0.111f + index / 1000.f }, { 0.7f, 0.7f }, m_GameLayer->m_FishImage);
+	params.Position = { m_X, m_Y - height / 2, 0.111f + index / 1000.f };
+	Can::Renderer2D::DrawQuad(params);
 }
 
 void Fish::Move(float ts, float* state, int stateSize)

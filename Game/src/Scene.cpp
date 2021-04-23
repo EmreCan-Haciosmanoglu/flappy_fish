@@ -47,16 +47,40 @@ void Scene::Update(float ts)
 
 void Scene::Draw()
 {
-	Can::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.111f }, { 38.0f,24.0f }, m_GameLayer->m_BackgroundImage);
-	Can::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.11f }, { m_Width + 0.5f, m_Height + 0.5f }, { 0.1f, 0.1f, 0.1f, 1.0f });
-	Can::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { m_Width, m_Height }, m_GameLayer->m_WaterImage);
+	auto params = Can::DrawQuadParameters();
+
+	params.Position = { 0.0f, 0.0f, -0.111f };
+	params.Size = { 38.0f,24.0f };
+	params.texture = m_GameLayer->m_BackgroundImage;
+	Can::Renderer2D::DrawQuad(params);
+
+	params.Position = { 0.0f, 0.0f, -0.11f };
+	params.Size = { m_Width + 0.5f, m_Height + 0.5f };
+	params.texture = nullptr;
+	params.TintColor = { 0.1f, 0.1f, 0.1f, 1.0f };
+	Can::Renderer2D::DrawQuad(params);
+
+	params.Position = { 0.0f, 0.0f, -0.1f };
+	params.Size = { m_Width, m_Height };
+	params.texture = m_GameLayer->m_WaterImage;
+	params.TintColor =glm::vec4(1.0f);
+	Can::Renderer2D::DrawQuad(params);
+
+	params.texture = m_GameLayer->m_StalactiteImage;
 	for (int i = 0; i < m_ObstacleCount; i++)
 	{
 		Obstacle ob = m_Obstacles.at(i);
 		if (ob.x1 < m_Width / 2 - m_ObstacleWidth)
 		{
-			Can::Renderer2D::DrawQuad({ ob.x1 + m_ObstacleWidth / 2 , ob.y1 - m_Height / 2.0f }, { ob.w * 1.4f, ob.h1 }, m_GameLayer->m_StalactiteImage);
-			Can::Renderer2D::DrawQuad({ ob.x2 + m_ObstacleWidth / 2, ob.y2 - m_Height / 2.0f }, { ob.w * 1.4f, ob.h2 }, 180.0f, m_GameLayer->m_StalactiteImage);
+			params.Position = { ob.x1 + m_ObstacleWidth / 2 , ob.y1 - m_Height / 2.0f, 0.0f };
+			params.Size = { ob.w * 1.4f, ob.h1 };
+			params.RotationInRadians = 0.0f;
+			Can::Renderer2D::DrawQuad(params);
+
+			params.Position = { ob.x2 + m_ObstacleWidth / 2 , ob.y2 - m_Height / 2.0f, 0.0f };
+			params.Size = { ob.w * 1.4f, ob.h2 };
+			params.RotationInRadians = glm::radians(180.0f);
+			Can::Renderer2D::DrawQuad(params);
 		}
 	}
 }

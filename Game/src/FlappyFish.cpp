@@ -8,10 +8,11 @@
 class FlappyBird : public Can::Application
 {
 public:
-	FlappyBird()
+	FlappyBird(const Can::WindowProps& props)
+		:Application(props)
 	{
 		ImGuiIO& io = ImGui::GetIO();
-		io.Fonts->AddFontFromFileTTF("assets/fonts/Poppins-Light.otf", 32.0f);
+		io.Fonts->AddFontFromFileTTF("assets/fonts/Poppins/Poppins-Light.otf", 32.0f);
 		PushLayer(new GameLayer());
 	}
 
@@ -21,7 +22,7 @@ public:
 	}
 };
 
-Can::Application* Can::CreateApplication()
+Can::Application* Can::CreateApplication(const Can::WindowProps& props)
 {
-	return new FlappyBird();
+	return new FlappyBird(props);
 }

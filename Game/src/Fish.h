@@ -3,6 +3,7 @@
 #include "../temps/NeuralNetwork.h"
 
 class GameLayer;
+class Can::DrawQuadParameters;
 
 class Fish
 {
@@ -35,4 +36,6 @@ private:
 
 	NeuralNetwork* m_Brain;
 	GameLayer* m_GameLayer;
+
+	Can::DrawQuadParameters params = Can::DrawQuadParameters();
 };
