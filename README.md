@@ -2,7 +2,13 @@
 git clone --recursive https://github.com/EmreCan-Haciosmanoglu/flappy_fish flappy_fish
 ```
 ```
-cd flappy_fish/Engine/Can
+cd flappy_fish/Engine
+```
+```
+git checkout f4d22b5
+```
+```
+cd Can
 ```
 ```
 GenerateProject.bat
